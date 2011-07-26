@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ftpsentinel</string>
+    <string name="preferences">Settings</string>
+    <string name="updatedDetected">Updates detected!</string>
+    <string name="filesNotification">files</string>
+    <string name="filesAddedNotification">added</string>
+    <string name="filesRemovedNotification">removed</string>
+    <string name="orChangedFilesNotification">or changed</string>
+    <string name="fileChanged">file changed on</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="notConnected">You\'re not connected!</string>
+    <string name="allEntry">You must complete all entry in order to connect!</string>
+    <string name="warningLowInterval">Warning: You\'ve selected a time interval lower than 1 minute</string>
+    <string name="nextUpdates">Don\'t notify this update anymore but check for next updates\n\n</string>
+    <string name="firstTime">First run!</string>
+    <string name="firstTimeSummary">At the first connection FTPsentinel will download your server\'s file list</string>
+    <string name="IOException">IOException: probably you\'re filesystem is mounted in read-only mode</string>
+    
+    <!-- Layout start -->
+    <string name="hostname">Hostname</string>
+    <string name="hostnameSummary">You can insert the hostname or the IP</string>
+    
+    <string name="username">Username</string>
+    <string name="usernameSummary">insert your username</string>
+    
+    <string name="password">Password</string>
+    <string name="passwordSummary">insert your password</string>
+    
+    <string name="port">Port</string>
+    <string name="portSummary">default port is 21</string>
+    
+    <string name="welcomeReply">Welcome reply</string>
+    <string name="welcomeReplySummary">read server\'s welcome message</string>
+    
+    <string name="howOften">Time interval</string>
+    <string name="howOftenSummary">by default ftpsentinel checks for update every 20 minutes</string>
+    
+    <string name="startMonitoring">Start monitoring</string>
+    
+    <string name="getNewFileList">Notify next updates</string>
+    <string name="getNewFileListSummary">Last update detected on:</string>
+    
+    <string name="manualCheck">Manual check</string>
+    <string name="manualCheckSummary">check for changes on the server manually</string>
+    
+    <string name="stopMonitoring">Stop monitoring</string>
+    <string name="stopMonitoringSummary">stop monitoring and disconnect</string>
+    
+    <string name="helpUs">Make a donation</string>
+    <string name="helpUsSummary">This application is completely free and adfree: support future development with a small donation</string>
+    <!-- Layout end -->
+    
+</resources>

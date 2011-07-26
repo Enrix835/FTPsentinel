@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ftpsentinel</string>
+    <string name="preferences">Impostazioni</string>
+    <string name="updatedDetected">Aggiornamenti rilevati</string>
+    <string name="filesNotification">file</string>
+    <string name="filesAddedNotification">aggiunti</string>
+    <string name="filesRemovedNotification">rimossi</string>
+    <string name="orChangedFilesNotification">o cambiati</string>
+    <string name="fileChanged">file aggiornati su</string>
+    <string name="disconnected">Disconnesso</string>
+    <string name="notConnected">Non sei connesso al server!</string>
+    <string name="allEntry">Devi completare tutti i campi per la connessione!</string>
+    <string name="warningLowInterval">Attenzione: Hai scelto un intervallo di tempo inferiore ad un minuto!</string>
+    <string name="nextUpdates">non notificare più questo aggiornamento ma attendi un nuovo aggiornamento\n\n</string>
+    <string name="firstTime">Primo avvio!</string>
+    <string name="firstTimeSummary">Alla prima connessione FTPsentinel scarichera\' la lista dei file presenti sul tuo server</string>
+    <string name="IOException">IOException: probabilmente il tuo filesystem e\' montato in sola lettura</string>
+    
+    <!-- Layout start -->
+    <string name="hostname">Hostname</string>
+    <string name="hostnameSummary">puoi inserire l\'hostname o l\'IP</string>
+    
+    <string name="username">Username</string>
+    <string name="usernameSummary">inserisci il tuo username</string>
+    
+    <string name="password">Password</string>
+    <string name="passwordSummary">inserisci la tua password</string>
+    
+    <string name="port">Porta</string>
+    <string name="portSummary">la porta di default è la 21</string>
+    
+    <string name="welcomeReply">Messaggio di benvenuto</string>
+    <string name="welcomeReplySummary">leggi il messaggio di benvenuto del server</string>
+    
+    <string name="howOften">Intervallo di tempo</string>
+    <string name="howOftenSummary">di default ftpsentinel controlla per aggiornamenti ogni 20 minuti</string>
+    
+    <string name="startMonitoring">Inzia a monitorare il server</string>
+    
+    <string name="getNewFileList">Notifica prossimi updates</string>
+    <string name="getNewFileListSummary">ultimo aggiornamento rilevato il: </string>
+    
+    <string name="manualCheck">Controllo manuale</string>
+    <string name="manualCheckSummary">controlla ora nuovi aggiornamenti sul server</string>
+    
+    <string name="stopMonitoring">Finisci di monitorare</string>
+    <string name="stopMonitoringSummary">finisci di monitorare il server e disconnetiti</string>
+    
+    <string name="helpUs">Effettua una donazione</string>
+    <string name="helpUsSummary">Questa applicazione e\' completamente free e senza ads: effettua una piccola donazione per supportare
+    lo sviluppo di ftpsentinel!</string>
+    <!-- Layout end -->
+    
+</resources>

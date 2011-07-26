@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+     <PreferenceCategory android:title="FTP login">
+            
+            <EditTextPreference
+				android:key="host"
+				android:title="@string/hostname"
+        		android:summary="@string/hostnameSummary" />
+    		
+			<EditTextPreference
+				android:key="username"
+				android:title="@string/username"
+        		android:summary="@string/usernameSummary" />
+    		
+    		<EditTextPreference
+				android:key="password"
+				android:title="@string/password"
+        		android:summary="@string/passwordSummary" />
+    		
+    		<EditTextPreference
+				android:key="port"
+				android:title="@string/port"
+        		android:summary="@string/portSummary"
+        		android:numeric="integer"
+        		android:inputType="number"
+				android:defaultValue="21" />
+    		
+    </PreferenceCategory>
+    
+<PreferenceCategory android:title="@string/preferences">
+            
+            <CheckBoxPreference
+				android:key="welcomeCheck"
+				android:title="@string/welcomeReply"
+        		android:summary="@string/welcomeReplySummary" />
+    		
+    		<EditTextPreference
+    			android:key="timerButton"
+    			android:title="@string/howOften"
+    			android:summary="@string/howOftenSummary"
+    			android:defaultValue="1200000"
+    			android:numeric="integer"
+    			android:inputType="number" />
+    			
+    </PreferenceCategory>
+    
+	<PreferenceCategory android:title="FTP sentinel">
+            
+            <Preference
+				android:key="connectButton"
+				android:title="@string/startMonitoring" />
+			
+			<Preference
+				android:key="getListButton"
+				android:title="@string/getNewFileList" 
+				android:summary="@string/getNewFileListSummary" />
+			
+			<Preference
+				android:key="manualCheckButton"
+				android:title="@string/manualCheck" 
+				android:summary="@string/manualCheckSummary"/>
+				
+			<Preference
+				android:key="disconnectButton"
+				android:title="@string/stopMonitoring" 
+				android:summary="@string/stopMonitoringSummary" />
+		</PreferenceCategory>
+	
+	<PreferenceCategory android:title="Info">
+			<PreferenceScreen
+				android:title="@string/helpUs" 
+				android:summary="@string/helpUsSummary">
+				<intent android:action="android.intent.action.VIEW" 
+				android:data="market://details?id=com.enrix835.ftpsentinel_donate" />
+			</PreferenceScreen>
+    </PreferenceCategory>
+</PreferenceScreen>
