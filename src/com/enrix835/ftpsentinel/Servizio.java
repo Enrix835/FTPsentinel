@@ -123,6 +123,7 @@ public class Servizio extends Service {
 		timer = new Timer();
 		
 		final Handler update = new Handler() {
+			@Override
 			public void dispatchMessage (Message msg) {
 				super.dispatchMessage(msg);
 				checkForUpdates();
@@ -130,6 +131,7 @@ public class Servizio extends Service {
 		};
 		
 		timer.scheduleAtFixedRate(new TimerTask() {
+			@Override
 			public void run() {
 				try {
 					update.sendEmptyMessage(0);

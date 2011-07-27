@@ -77,17 +77,17 @@ public class FtpsentinelActivity extends PreferenceActivity {
         
         timerButton = (EditTextPreference) findPreference("timerButton");
         
-        connectButton = (Preference) findPreference("connectButton");
+        connectButton = findPreference("connectButton");
 		connectButton.setOnPreferenceClickListener(connectListener);
 		
-		fileListButton = (Preference) findPreference("getListButton");
+		fileListButton = findPreference("getListButton");
 		fileListButton.setSummary(res.getString(R.string.nextUpdates) + res.getString(R.string.getNewFileListSummary)+ " " + dateFile);
 		fileListButton.setOnPreferenceClickListener(fileListListener);
 		
-		manualCheckButton = (Preference) findPreference("manualCheckButton");
+		manualCheckButton = findPreference("manualCheckButton");
 		manualCheckButton.setOnPreferenceClickListener(manualCheckListener);
 		
-		logoutButton = (Preference) findPreference("disconnectButton");
+		logoutButton = findPreference("disconnectButton");
 		logoutButton.setOnPreferenceClickListener(logoutListener);
 		
 		if(!(new File(fileList).isFile())){
