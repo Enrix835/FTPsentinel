@@ -24,20 +24,23 @@ public class Ftp {
 		this.port = port;
 	}
 	
-	public void connect(boolean getWelcomeMsg) {
+	public boolean connect(boolean getWelcomeMsg) {
 		nFtp = new FTPClient();
 		try {
 			nFtp.connect(host, port);
 		} catch (SocketException e) {
 			e.printStackTrace();
+			return false;
 		} catch (IOException e) {
 			e.printStackTrace();
+			return false;
 		}
 		
 		try {
 			nFtp.login(username, password);
 		} catch (IOException e) {
 			e.printStackTrace();
+			return false;
 		}
 		
 		replyCode = nFtp.getReplyCode();
@@ -53,7 +56,7 @@ public class Ftp {
 		if(getWelcomeMsg) {
 			welcomeMessage = nFtp.getReplyString();
 		}
-		   
+		return true;
 	}
 	
 	public String getWelcomeMessage() {

@@ -25,6 +25,7 @@ public class Servizio extends Service {
 	private Ftp newFtp;
 	private SharedPreferences prefs;
 	private String hostname;
+	private String IP;
 	private String username;
 	private String password; 
 	private int port;
@@ -34,6 +35,7 @@ public class Servizio extends Service {
 	private String newFileList;
 	
 	private Utils utils = new Utils();
+	private Alert alert = new Alert(this);
 	private Timer timer = new Timer();
 	
 	@Override
@@ -51,6 +53,7 @@ public class Servizio extends Service {
 		res = getResources();
 		prefs = getSharedPreferences("ftpdata", Context.MODE_PRIVATE);
 		hostname = prefs.getString("hostname", "");
+		IP = prefs.getString("IP", "");
 		username = prefs.getString("username", "");
 		password = prefs.getString("password", "");
 		port = prefs.getInt("port", 21);
@@ -62,14 +65,18 @@ public class Servizio extends Service {
 		utils = new Utils();
 		timer = new Timer();
 		
-		String IP = !utils.isIPAddress(hostname) ? utils.GetIP(hostname) : hostname;
-		
 		newFtp = new Ftp(username, password, IP, port);
-        newFtp.connect(getWelcomeMsg);
+		if(newFtp.connect(getWelcomeMsg) == false) {
+			alert.createAlert(res.getString(R.string.error), 
+					res.getString(R.string.unableToConnectFirst) +
+					" " + hostname + "\n" +
+					res.getString(R.string.unableToConnectSecond), "OK").show();
+			stopSelf();
+		}
         
-        if(newFtp.getWelcomeMessage() != null) {
-        	Toast.makeText(getBaseContext(), newFtp.getWelcomeMessage(), Toast.LENGTH_LONG).show();
-        }
+		if(newFtp.getWelcomeMessage() != null) {
+			Toast.makeText(getBaseContext(), newFtp.getWelcomeMessage(), Toast.LENGTH_LONG).show();
+		}
 	}
 
 	@Override
@@ -90,6 +97,7 @@ public class Servizio extends Service {
 	public void DisconnectAndDestroy() {
 		
 	}
+	
 	@Override
 	public void onStart(Intent intent, int startId) {
 		super.onStart(intent, startId);
@@ -97,9 +105,9 @@ public class Servizio extends Service {
          * main fileList
          */
 		boolean isFirstTime = intent.getExtras().getBoolean("isFirstTime"); 
-        if(isFirstTime) {
-        	newFtp.getFileList(fileList);
-        }
+		if(isFirstTime) {
+			newFtp.getFileList(fileList);
+		}
 		startCheckService();
 	}
 	

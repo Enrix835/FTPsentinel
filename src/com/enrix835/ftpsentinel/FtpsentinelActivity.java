@@ -2,12 +2,10 @@ package com.enrix835.ftpsentinel;
 
 import java.io.File;
 
-import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -43,7 +41,7 @@ public class FtpsentinelActivity extends PreferenceActivity {
     public Ftp newFtp;
     
     public Utils utils = new Utils();
-    
+    public Alert alert = new Alert(this);
     public String dateFile;
     public String hostname;
     
@@ -91,7 +89,7 @@ public class FtpsentinelActivity extends PreferenceActivity {
 		logoutButton.setOnPreferenceClickListener(logoutListener);
 		
 		if(!(new File(fileList).isFile())){
-			createInfoDialog(res.getString(R.string.firstTime), res.getString(R.string.firstTimeSummary), "OK");
+			alert.createAlert(res.getString(R.string.firstTime), res.getString(R.string.firstTimeSummary), "OK").show();
 			isFirstTime = true;
 		}
 		intent.putExtra("isFirstTime", isFirstTime);
@@ -119,23 +117,34 @@ public class FtpsentinelActivity extends PreferenceActivity {
 				getWelcomeMsg = true;
 			}
 			
-			if(hostname == "" || username == "" || password == "") {
-				Toast.makeText(getBaseContext(), R.string.allEntry, Toast.LENGTH_LONG).show();
+			if(hostname == null || username == null || password == null) {
+				alert.createAlert(res.getString(R.string.error), res.getString(R.string.allEntry), "OK").show();
 			} else {
 				if(timer < 60000) {
 					Toast.makeText(getBaseContext(), R.string.warningLowInterval, Toast.LENGTH_LONG).show();
 				}
-				editor.putString("hostname", hostname);
-				editor.putString("username", username);
-				editor.putString("password", password);
-				editor.putInt("port", port);
-				editor.putInt("interval", timer);
-				editor.putBoolean("welcome", getWelcomeMsg);
-				editor.putString("fileList", fileList);
-				editor.putString("newFileList", newFileList);
-				editor.commit();
 				
-				startService(intent);
+				String IP = !utils.isIPAddress(hostname) ? utils.GetIP(hostname) : hostname;
+				
+				if(IP != null) {
+					editor.putString("hostname", hostname);
+					editor.putString("IP", IP);
+					editor.putString("username", username);
+					editor.putString("password", password);
+					editor.putInt("port", port);
+					editor.putInt("interval", timer);
+					editor.putBoolean("welcome", getWelcomeMsg);
+					editor.putString("fileList", fileList);
+					editor.putString("newFileList", newFileList);
+					editor.commit();
+				
+					startService(intent);
+				} else {
+					alert.createAlert(res.getString(R.string.error), 
+						res.getString(R.string.unableToConnectFirst) +
+						" " + hostname + "\n" +
+						res.getString(R.string.unableToConnectSecond), "OK").show();
+				}
 			}
 			return true;
 		}
@@ -155,7 +164,12 @@ public class FtpsentinelActivity extends PreferenceActivity {
 			port = prefs.getInt("port", 21);
 			
 			Ftp nFtp = new Ftp(username, password, host, port);
-			nFtp.connect(false);
+			if(!nFtp.connect(false)) {
+				alert.createAlert(res.getString(R.string.error), 
+						res.getString(R.string.unableToConnectFirst) +
+						" " + host + "\n" +
+						res.getString(R.string.unableToConnectSecond), "OK").show();
+			}
 			nFtp.getFileList(fileList);
 			Log.i("ftpsentinel", "getting new file list...");
 			nFtp.disconnect();
@@ -219,21 +233,6 @@ public class FtpsentinelActivity extends PreferenceActivity {
 			
 		notification.setLatestEventInfo(getBaseContext(), brief, message, contentIntent);
 		notificationManager.notify(ID, notification);
-	}
-	
-	public void createInfoDialog(String title, String message, String button) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(message)
-	       .setCancelable(false)
-	       .setPositiveButton(button, new DialogInterface.OnClickListener() {
-	    	   public void onClick(DialogInterface dialog, int id) {
-	    		   dialog.cancel();
-	    		  }
-	    });
-	    AlertDialog alert = builder.create();
-	    alert.setTitle(title);
-	    alert.setIcon(R.drawable.ic_ftps);
-	    alert.show();
 	}
 	
 }

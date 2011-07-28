@@ -15,7 +15,13 @@
     <string name="nextUpdates">non notificare più questo aggiornamento ma attendi un nuovo aggiornamento\n\n</string>
     <string name="firstTime">Primo avvio!</string>
     <string name="firstTimeSummary">Alla prima connessione FTPsentinel scarichera\' la lista dei file presenti sul tuo server</string>
+    
+    <!--  Errors -->
+    <string name="error">Errore!</string>
     <string name="IOException">IOException: probabilmente il tuo filesystem e\' montato in sola lettura</string>
+    <string name="unableToConnectFirst">Impossibile connettersi al server</string>
+    <string name="unableToConnectSecond">Controlla la tua connessione e i dati inseriti e riprova</string>
+    <!-- End errors -->
     
     <!-- Layout start -->
     <string name="hostname">Hostname</string>

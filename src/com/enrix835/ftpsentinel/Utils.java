@@ -9,8 +9,7 @@ public class Utils {
 	
 	public String GetIP(String host) {
 		try {
-			InetAddress ipAddress = InetAddress.getByName(host);
-			return ipAddress.getHostAddress();
+			return InetAddress.getByName(host).getHostAddress();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

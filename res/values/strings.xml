@@ -15,7 +15,14 @@
     <string name="nextUpdates">Don\'t notify this update anymore but check for next updates\n\n</string>
     <string name="firstTime">First run!</string>
     <string name="firstTimeSummary">At the first connection FTPsentinel will download your server\'s file list</string>
+    
+    <!--  Errors -->
+    <string name="error">Error!</string>
     <string name="IOException">IOException: probably you\'re filesystem is mounted in read-only mode</string>
+    <string name="unableToConnectFirst">Unable to connect to</string>
+    <string name="unableToConnectSecond">Check your connection and your entries and try again</string>
+    <!-- End errors -->
+    
     
     <!-- Layout start -->
     <string name="hostname">Hostname</string>
