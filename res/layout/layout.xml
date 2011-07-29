@@ -16,7 +16,8 @@
     		<EditTextPreference
 				android:key="password"
 				android:title="@string/password"
-        		android:summary="@string/passwordSummary" />
+        		android:summary="@string/passwordSummary"
+        		android:inputType="textPassword" />
     		
     		<EditTextPreference
 				android:key="port"
@@ -25,11 +26,17 @@
         		android:numeric="integer"
         		android:inputType="number"
 				android:defaultValue="21" />
-    		
+    			
     </PreferenceCategory>
     
 <PreferenceCategory android:title="@string/preferences">
             
+            <EditTextPreference
+    			android:key="directory"
+    			android:title="@string/directory"
+    			android:summary="@string/directorySummary"
+    			android:defaultValue="/" />
+    			
             <CheckBoxPreference
 				android:key="welcomeCheck"
 				android:title="@string/welcomeReply"

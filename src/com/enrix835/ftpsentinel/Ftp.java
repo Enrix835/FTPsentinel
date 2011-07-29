@@ -1,6 +1,9 @@
 package com.enrix835.ftpsentinel;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.SocketException;
@@ -12,16 +15,17 @@ import org.apache.commons.net.ftp.FTPReply;
 public class Ftp {
 	
 	FTPClient nFtp;
-	private String username, password, host;
+	private String username, password, host, directory;
 	private int port;
 	private String welcomeMessage;
 	private int replyCode;
 	
-	Ftp(String username, String password, String host, int port) {
+	Ftp(String username, String password, String host, int port, String directory) {
 		this.username = username;
 		this.password = password;
 		this.host = host;
 		this.port = port;
+		this.directory = directory;
 	}
 	
 	public boolean connect(boolean getWelcomeMsg) {
@@ -65,8 +69,10 @@ public class Ftp {
 	
 	public void getFileList(String outFilename) {
 		try {
-			FTPFile [] ftpList = nFtp.listFiles(null);
+			FTPFile [] ftpList = nFtp.listFiles(!directory.equals("/") ? directory : null);
 			BufferedWriter out = new BufferedWriter(new FileWriter(outFilename));
+			/* first line is the name of the directory */
+			out.write("dir:" + directory + "\n\n");
 			for(FTPFile ftpFile : ftpList) {
 				out.write(ftpFile.getName() + " | " + 
 						  ftpFile.getSize() + " | " + 
@@ -80,7 +86,26 @@ public class Ftp {
 	}
 	
 	public int checkUpdates(Utils utils, String newFileList, String fileList) {
+		String previousWorkingDir = null;
+		String newWorkingDir = null;
+		
 		getFileList(newFileList);
+		
+		try {
+			previousWorkingDir = new BufferedReader(new FileReader(fileList)).readLine();
+			newWorkingDir = new BufferedReader(new FileReader(newFileList)).readLine();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		/* if the user selected to monitor a different directory... */
+		
+		if(!previousWorkingDir.equals(newWorkingDir)) {
+			getFileList(fileList);
+		}
+		
 		return utils.filesEqual(fileList, newFileList);
 	}
 	

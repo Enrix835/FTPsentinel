@@ -6,8 +6,7 @@
     <string name="filesNotification">file</string>
     <string name="filesAddedNotification">aggiunti</string>
     <string name="filesRemovedNotification">rimossi</string>
-    <string name="orChangedFilesNotification">o cambiati</string>
-    <string name="fileChanged">file aggiornati su</string>
+    <string name="orChangedFilesNotification">o cambiati su</string>
     <string name="disconnected">Disconnesso</string>
     <string name="notConnected">Non sei connesso al server!</string>
     <string name="allEntry">Devi completare tutti i campi per la connessione!</string>
@@ -35,6 +34,9 @@
     
     <string name="port">Porta</string>
     <string name="portSummary">la porta di default è la 21</string>
+    
+    <string name="directory">Directory da monitorare</string>
+    <string name="directorySummary">la directory di default è "/" (root)</string>
     
     <string name="welcomeReply">Messaggio di benvenuto</string>
     <string name="welcomeReplySummary">leggi il messaggio di benvenuto del server</string>

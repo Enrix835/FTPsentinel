@@ -17,53 +17,54 @@ public final class R {
         public static final int layout=0x7f030000;
     }
     public static final class string {
-        public static final int IOException=0x7f040010;
-        public static final int allEntry=0x7f04000a;
+        public static final int IOException=0x7f04000f;
+        public static final int allEntry=0x7f040009;
         public static final int app_name=0x7f040000;
-        public static final int disconnected=0x7f040008;
+        public static final int directory=0x7f04001a;
+        public static final int directorySummary=0x7f04001b;
+        public static final int disconnected=0x7f040007;
         /**   Errors 
   Errors 
          */
-        public static final int error=0x7f04000f;
-        public static final int fileChanged=0x7f040007;
+        public static final int error=0x7f04000e;
         public static final int filesAddedNotification=0x7f040004;
         public static final int filesNotification=0x7f040003;
         public static final int filesRemovedNotification=0x7f040005;
-        public static final int firstTime=0x7f04000d;
-        public static final int firstTimeSummary=0x7f04000e;
-        public static final int getNewFileList=0x7f040020;
-        public static final int getNewFileListSummary=0x7f040021;
-        public static final int helpUs=0x7f040026;
-        public static final int helpUsSummary=0x7f040027;
+        public static final int firstTime=0x7f04000c;
+        public static final int firstTimeSummary=0x7f04000d;
+        public static final int getNewFileList=0x7f040021;
+        public static final int getNewFileListSummary=0x7f040022;
+        public static final int helpUs=0x7f040027;
+        public static final int helpUsSummary=0x7f040028;
         /**  End errors 
  Layout start 
  End errors 
  Layout start 
          */
-        public static final int hostname=0x7f040013;
-        public static final int hostnameSummary=0x7f040014;
-        public static final int howOften=0x7f04001d;
-        public static final int howOftenSummary=0x7f04001e;
-        public static final int manualCheck=0x7f040022;
-        public static final int manualCheckSummary=0x7f040023;
-        public static final int nextUpdates=0x7f04000c;
-        public static final int notConnected=0x7f040009;
+        public static final int hostname=0x7f040012;
+        public static final int hostnameSummary=0x7f040013;
+        public static final int howOften=0x7f04001e;
+        public static final int howOftenSummary=0x7f04001f;
+        public static final int manualCheck=0x7f040023;
+        public static final int manualCheckSummary=0x7f040024;
+        public static final int nextUpdates=0x7f04000b;
+        public static final int notConnected=0x7f040008;
         public static final int orChangedFilesNotification=0x7f040006;
-        public static final int password=0x7f040017;
-        public static final int passwordSummary=0x7f040018;
-        public static final int port=0x7f040019;
-        public static final int portSummary=0x7f04001a;
+        public static final int password=0x7f040016;
+        public static final int passwordSummary=0x7f040017;
+        public static final int port=0x7f040018;
+        public static final int portSummary=0x7f040019;
         public static final int preferences=0x7f040001;
-        public static final int startMonitoring=0x7f04001f;
-        public static final int stopMonitoring=0x7f040024;
-        public static final int stopMonitoringSummary=0x7f040025;
-        public static final int unableToConnectFirst=0x7f040011;
-        public static final int unableToConnectSecond=0x7f040012;
+        public static final int startMonitoring=0x7f040020;
+        public static final int stopMonitoring=0x7f040025;
+        public static final int stopMonitoringSummary=0x7f040026;
+        public static final int unableToConnectFirst=0x7f040010;
+        public static final int unableToConnectSecond=0x7f040011;
         public static final int updatedDetected=0x7f040002;
-        public static final int username=0x7f040015;
-        public static final int usernameSummary=0x7f040016;
-        public static final int warningLowInterval=0x7f04000b;
-        public static final int welcomeReply=0x7f04001b;
-        public static final int welcomeReplySummary=0x7f04001c;
+        public static final int username=0x7f040014;
+        public static final int usernameSummary=0x7f040015;
+        public static final int warningLowInterval=0x7f04000a;
+        public static final int welcomeReply=0x7f04001c;
+        public static final int welcomeReplySummary=0x7f04001d;
     }
 }

@@ -2,9 +2,6 @@ package com.enrix835.ftpsentinel;
 
 import java.io.File;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,7 +13,6 @@ import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 public class FtpsentinelActivity extends PreferenceActivity {
@@ -29,6 +25,7 @@ public class FtpsentinelActivity extends PreferenceActivity {
     public EditTextPreference usernameEdit;
     public EditTextPreference passwordEdit;
     public EditTextPreference portEdit;
+    public EditTextPreference directoryEdit;
     public CheckBoxPreference welcomeCheck;
     public EditTextPreference timerButton;
     public Preference connectButton;
@@ -37,11 +34,10 @@ public class FtpsentinelActivity extends PreferenceActivity {
     public Preference logoutButton;
     
     public Resources res;
-    
     public Ftp newFtp;
-    
     public Utils utils = new Utils();
     public Alert alert = new Alert(this);
+    public NotificationMessage nMsg = new NotificationMessage(this);
     public String dateFile;
     public String hostname;
     
@@ -70,6 +66,7 @@ public class FtpsentinelActivity extends PreferenceActivity {
         usernameEdit = (EditTextPreference) findPreference("username");
         passwordEdit = (EditTextPreference) findPreference("password");
         portEdit = (EditTextPreference) findPreference("port");
+        directoryEdit = (EditTextPreference) findPreference("directory");
         
         welcomeCheck = (CheckBoxPreference) findPreference("welcomeCheck");
         
@@ -88,9 +85,9 @@ public class FtpsentinelActivity extends PreferenceActivity {
 		logoutButton = findPreference("disconnectButton");
 		logoutButton.setOnPreferenceClickListener(logoutListener);
 		
-		if(!(new File(fileList).isFile())){
+		if(isFirstTime = !(new File(fileList).isFile())){
 			alert.createAlert(res.getString(R.string.firstTime), res.getString(R.string.firstTimeSummary), "OK").show();
-			isFirstTime = true;
+			//isFirstTime = true;
 		}
 		intent.putExtra("isFirstTime", isFirstTime);
     }
@@ -100,6 +97,7 @@ public class FtpsentinelActivity extends PreferenceActivity {
 		private String hostname;
 		private String username;
 		private String password;
+		private String directory;
 		private int port;
 
 		public boolean onPreferenceClick(Preference preference) {
@@ -110,6 +108,7 @@ public class FtpsentinelActivity extends PreferenceActivity {
 			hostname = hostEdit.getText();
 			username = usernameEdit.getText();
 			password = passwordEdit.getText();
+			directory = directoryEdit.getText();
 			port = Integer.parseInt(portEdit.getText());
 			timer = Integer.parseInt(timerButton.getText());
 			
@@ -131,6 +130,7 @@ public class FtpsentinelActivity extends PreferenceActivity {
 					editor.putString("IP", IP);
 					editor.putString("username", username);
 					editor.putString("password", password);
+					editor.putString("directory", directory);
 					editor.putInt("port", port);
 					editor.putInt("interval", timer);
 					editor.putBoolean("welcome", getWelcomeMsg);
@@ -154,16 +154,17 @@ public class FtpsentinelActivity extends PreferenceActivity {
 	OnPreferenceClickListener fileListListener = new OnPreferenceClickListener() {
 
 		public boolean onPreferenceClick(Preference preference) {
-			String host, username, password;
+			String host, username, password, directory;
 			SharedPreferences prefs = getSharedPreferences(FTP_DATA, Context.MODE_PRIVATE);
 			int port;
 			
 			username = prefs.getString("username", "");
 			password = prefs.getString("password", "");
 			host = prefs.getString("hostname", "");
+			directory = prefs.getString("directory", "/");
 			port = prefs.getInt("port", 21);
 			
-			Ftp nFtp = new Ftp(username, password, host, port);
+			Ftp nFtp = new Ftp(username, password, host, port, directory);
 			if(!nFtp.connect(false)) {
 				alert.createAlert(res.getString(R.string.error), 
 						res.getString(R.string.unableToConnectFirst) +
@@ -171,7 +172,6 @@ public class FtpsentinelActivity extends PreferenceActivity {
 						res.getString(R.string.unableToConnectSecond), "OK").show();
 			}
 			nFtp.getFileList(fileList);
-			Log.i("ftpsentinel", "getting new file list...");
 			nFtp.disconnect();
 			return true;
 		}
@@ -181,25 +181,26 @@ public class FtpsentinelActivity extends PreferenceActivity {
 	OnPreferenceClickListener manualCheckListener = new OnPreferenceClickListener() {
 		
 		public boolean onPreferenceClick(Preference preference) {
-			String host, username, password;
+			String host, username, password, directory;
 			SharedPreferences prefs = getSharedPreferences(FTP_DATA, Context.MODE_PRIVATE);
 			int port, value;
 			
 			username = prefs.getString("username", "");
 			password = prefs.getString("password", "");
 			host = prefs.getString("hostname", "");
+			directory = prefs.getString("directory", "/");
 			port = prefs.getInt("port", 21);
 			
-			Ftp nFtp = new Ftp(username, password, host, port);
+			Ftp nFtp = new Ftp(username, password, host, port, directory);
 			nFtp.connect(false);
 			
 			if((value = nFtp.checkUpdates(utils, newFileList, fileList)) != 0) {
-				showNotification(res.getString(R.string.updatedDetected), 
+				nMsg.show(res.getString(R.string.updatedDetected), 
 						res.getString(R.string.filesNotification) + " " +
 						(value == 1 ? res.getString(R.string.filesRemovedNotification) : 
 						res.getString(R.string.filesAddedNotification)) + " " +
 						res.getString(R.string.orChangedFilesNotification), 
-						res.getString(R.string.fileChanged) + " " + host, 1);
+						host + "/" + directory, 1);
 			}
 			
 			(new File(newFileList)).delete();
@@ -220,19 +221,5 @@ public class FtpsentinelActivity extends PreferenceActivity {
 		} 
 		
 	};
-	
-	/* TODO:
-	 *  put showNotification() in Utils class
-	 */
-	void showNotification(String title, String brief, String message, int ID) {	
-		NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-		Notification notification = new Notification(R.drawable.ic_ftps, title, System.currentTimeMillis());
-	    
-		Intent notificationIntent = new Intent(this, FtpsentinelActivity.class);
-		PendingIntent contentIntent = PendingIntent.getActivity(getBaseContext(), 0, notificationIntent, android.content.Intent.FLAG_ACTIVITY_NEW_TASK);
-			
-		notification.setLatestEventInfo(getBaseContext(), brief, message, contentIntent);
-		notificationManager.notify(ID, notification);
-	}
 	
 }
