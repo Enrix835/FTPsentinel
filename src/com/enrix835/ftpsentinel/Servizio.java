@@ -114,12 +114,14 @@ public class Servizio extends Service {
 	public void checkForUpdates() {
 		int value;
 		if(((value = newFtp.checkUpdates(utils, newFileList, fileList)) != 0)) {
+			if((value = newFtp.checkUpdates(utils, newFileList, fileList)) != 0) {
 				nMsg.show(res.getString(R.string.updatedDetected), 
-					res.getString(R.string.filesNotification) + " " +
-					(value == 1 ? res.getString(R.string.filesRemovedNotification) : 
-					res.getString(R.string.filesAddedNotification)) + " " +
-					res.getString(R.string.orChangedFilesNotification), 
-					hostname + "/" + directory, 1);
+						res.getString(R.string.filesNotification) + " " +
+						(value == 1 ? res.getString(R.string.filesRemovedNotification) : 
+						res.getString(R.string.filesAddedNotification)) + " " +
+						res.getString(R.string.orChangedFilesNotification), 
+						hostname + (directory.charAt(0) == '/' ? directory : "/" + directory), 1);
+			}
 		}
 		if(!(new File(newFileList)).delete() && !(new File(fileList).isFile())) {
 			Toast.makeText(getBaseContext(), res.getString(R.string.IOException), Toast.LENGTH_LONG).show();

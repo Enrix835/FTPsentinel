@@ -200,7 +200,7 @@ public class FtpsentinelActivity extends PreferenceActivity {
 						(value == 1 ? res.getString(R.string.filesRemovedNotification) : 
 						res.getString(R.string.filesAddedNotification)) + " " +
 						res.getString(R.string.orChangedFilesNotification), 
-						host + "/" + directory, 1);
+						host + (directory.charAt(0) == '/' ? directory : "/" + directory), 1);
 			}
 			
 			(new File(newFileList)).delete();
